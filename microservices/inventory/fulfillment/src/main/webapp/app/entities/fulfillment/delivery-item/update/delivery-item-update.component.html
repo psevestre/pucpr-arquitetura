@@ -1,0 +1,161 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-delivery-item-heading"
+        data-cy="DeliveryItemCreateUpdateHeading"
+        jhiTranslate="fulfillmentApp.fulfillmentDeliveryItem.home.createOrEditLabel"
+      >
+        Criar ou editar Delivery Item
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="fulfillmentApp.fulfillmentDeliveryItem.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let skuRef = editForm.get('sku')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_sku" jhiTranslate="fulfillmentApp.fulfillmentDeliveryItem.sku">Sku</label>
+          <input type="text" class="form-control" name="sku" id="field_sku" data-cy="sku" formControlName="sku" />
+          @if (skuRef.invalid && (skuRef.dirty || skuRef.touched)) {
+            <div>
+              @if (editForm.get('sku')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              @if (editForm.get('sku')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '128' }"
+                  >Este campo não pode ter mais de 128 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_description" jhiTranslate="fulfillmentApp.fulfillmentDeliveryItem.description"
+            >Description</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        @let quantityRef = editForm.get('quantity')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_quantity" jhiTranslate="fulfillmentApp.fulfillmentDeliveryItem.quantity">Quantity</label>
+          <input type="number" class="form-control" name="quantity" id="field_quantity" data-cy="quantity" formControlName="quantity" />
+          @if (quantityRef.invalid && (quantityRef.dirty || quantityRef.touched)) {
+            <div>
+              @if (editForm.get('quantity')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              @if (editForm.get('quantity')?.errors?.min) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.min" [translateValues]="{ min: '0' }"
+                  >Este campo deve ser maior que 0.</small
+                >
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('quantity')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Este campo é do tipo numérico.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let weightRef = editForm.get('weight')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_weight" jhiTranslate="fulfillmentApp.fulfillmentDeliveryItem.weight">Weight</label>
+          <input type="number" class="form-control" name="weight" id="field_weight" data-cy="weight" formControlName="weight" />
+          @if (weightRef.invalid && (weightRef.dirty || weightRef.touched)) {
+            <div>
+              @if (editForm.get('weight')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              @if (editForm.get('weight')?.errors?.min) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.min" [translateValues]="{ min: '0' }"
+                  >Este campo deve ser maior que 0.</small
+                >
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('weight')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Este campo é do tipo numérico.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let volumeRef = editForm.get('volume')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_volume" jhiTranslate="fulfillmentApp.fulfillmentDeliveryItem.volume">Volume</label>
+          <input type="number" class="form-control" name="volume" id="field_volume" data-cy="volume" formControlName="volume" />
+          @if (volumeRef.invalid && (volumeRef.dirty || volumeRef.touched)) {
+            <div>
+              @if (editForm.get('volume')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              @if (editForm.get('volume')?.errors?.min) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.min" [translateValues]="{ min: '0' }"
+                  >Este campo deve ser maior que 0.</small
+                >
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('volume')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Este campo é do tipo numérico.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_delivery" jhiTranslate="fulfillmentApp.fulfillmentDeliveryItem.delivery">Delivery</label>
+          <select
+            class="form-control"
+            id="field_delivery"
+            data-cy="delivery"
+            name="delivery"
+            formControlName="delivery"
+            [compareWith]="compareDelivery"
+          >
+            <option [ngValue]="null"></option>
+            @for (deliveryOption of deliveriesSharedCollection; track $index) {
+              <option [ngValue]="deliveryOption">{{ deliveryOption.orderId }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

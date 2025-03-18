@@ -1,0 +1,53 @@
+
+application {
+  config {
+    applicationType monolith
+    authenticationType session
+    baseName blog
+    buildTool maven
+    cacheProvider no
+    clientFramework angular
+    clientTheme none
+    databaseType sql
+    devDatabaseType h2Memory
+    enableTranslation true
+    languages [pt-br]
+    microfrontends []
+    nativeLanguage pt-br
+    packageName br.pucpr.examples.blog
+    prodDatabaseType postgresql
+    reactive false
+    testFrameworks []
+    withAdminUi true
+  }
+  entities *
+}
+
+entity Author {
+  name String required
+  email String required unique
+  active Boolean required
+}
+
+entity Post {
+
+  title String required maxlength(256)
+  content TextBlob required
+  creationDate ZonedDateTime required
+  publishDate ZonedDateTime
+}
+
+entity Comment {
+  content String required maxlength(512)
+  creationDate ZonedDateTime required
+  publishDate ZonedDateTime
+  userId String required
+}
+
+relationship OneToMany {
+  Post to Comment{post(title)}
+}
+
+relationship OneToMany {
+  Author to Post{author(name)}
+}

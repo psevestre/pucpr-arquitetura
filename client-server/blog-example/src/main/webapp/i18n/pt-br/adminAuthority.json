@@ -1,0 +1,23 @@
+{
+  "blogApp": {
+    "adminAuthority": {
+      "home": {
+        "title": "Authorities",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Authority",
+        "createOrEditLabel": "Criar ou editar Authority",
+        "notFound": "Nenhum Authority encontrado"
+      },
+      "created": "Um novo Authority foi criado com o identificador {{ param }}",
+      "updated": "Um Authority foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Authority foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Authority {{ id }}?"
+      },
+      "detail": {
+        "title": "Authority"
+      },
+      "name": "Name"
+    }
+  }
+}

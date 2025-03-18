@@ -1,0 +1,68 @@
+application {
+  config {
+    applicationType microservice
+    authenticationType jwt
+    baseName fulfillment
+    buildTool maven
+    cacheProvider no
+    clientFramework angular
+    clientTheme none
+    creationTimestamp 1742258534896
+    databaseType sql
+    devDatabaseType h2Disk
+    enableTranslation true
+    jhipsterVersion "8.9.0"
+    jwtSecretKey "ZGQzMDljOTg1YzYxOWVjMjVlM2Y2MjJkZThkODAxMWM3YjRiMDQzYzAxMzQ4NWEzMTk3NGYyNDJkZTJlNzEyYmZkMmFhMWIzZjMwMjQzMzVhNTY3NGIzNjY0ZDY1YmJiYWEyNWIyMmE4OTBkMGNhMjhiYzM4OWU1NTNmNDJmMjg="
+    languages [pt-br]
+    microfrontends []
+    nativeLanguage pt-br
+    packageName br.pucpr.examples.inventory.fulfillment
+    prodDatabaseType postgresql
+    reactive false
+    serverPort 8400
+    serviceDiscoveryType consul
+    testFrameworks []
+    withAdminUi false
+  }
+
+  entities *
+}
+
+enum DeliveryStatus {
+  CREATED,
+  PREPARING,
+  IN_TRANSIT,
+  DELIVERED
+}
+
+entity Delivery {
+  orderId String required
+  status DeliveryStatus required
+
+  customerId String required maxlength(128)
+  name String required maxlength(128)
+  email String required maxlength(128)
+  addressLine1 String required maxlength(128)
+  addressLine2 String required maxlength(128)
+  zipCode String required maxlength(64)
+  city String maxlength(128)
+  country String maxlength(64)
+  deliveryInstructions String maxlength(512)
+
+  createdAt Instant required
+  updatedAt Instant required
+}
+
+entity DeliveryItem {
+  sku String required maxlength(128)
+  description String
+  quantity Integer required min(0)
+  weight Double required min(0)
+  volume Double required min(0)
+}
+
+relationship OneToMany {
+  Delivery{items(sku)} to DeliveryItem{delivery(orderId)}
+}
+
+

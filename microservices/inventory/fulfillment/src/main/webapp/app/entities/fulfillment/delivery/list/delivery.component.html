@@ -1,0 +1,194 @@
+<div>
+  <h2 id="page-heading" data-cy="DeliveryHeading">
+    <span jhiTranslate="fulfillmentApp.fulfillmentDelivery.home.title">Deliveries</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="fulfillmentApp.fulfillmentDelivery.home.refreshListLabel">Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-delivery"
+        [routerLink]="['/fulfillment/delivery/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="fulfillmentApp.fulfillmentDelivery.home.createLabel">Criar novo Delivery</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (deliveries().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="fulfillmentApp.fulfillmentDelivery.home.notFound">Nenhum Delivery encontrado</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">Código</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="orderId">
+              <div class="d-flex">
+                <span jhiTranslate="fulfillmentApp.fulfillmentDelivery.orderId">Order Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="status">
+              <div class="d-flex">
+                <span jhiTranslate="fulfillmentApp.fulfillmentDelivery.status">Status</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="customerId">
+              <div class="d-flex">
+                <span jhiTranslate="fulfillmentApp.fulfillmentDelivery.customerId">Customer Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="name">
+              <div class="d-flex">
+                <span jhiTranslate="fulfillmentApp.fulfillmentDelivery.name">Name</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="email">
+              <div class="d-flex">
+                <span jhiTranslate="fulfillmentApp.fulfillmentDelivery.email">Email</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="addressLine1">
+              <div class="d-flex">
+                <span jhiTranslate="fulfillmentApp.fulfillmentDelivery.addressLine1">Address Line 1</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="addressLine2">
+              <div class="d-flex">
+                <span jhiTranslate="fulfillmentApp.fulfillmentDelivery.addressLine2">Address Line 2</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="zipCode">
+              <div class="d-flex">
+                <span jhiTranslate="fulfillmentApp.fulfillmentDelivery.zipCode">Zip Code</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="city">
+              <div class="d-flex">
+                <span jhiTranslate="fulfillmentApp.fulfillmentDelivery.city">City</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="country">
+              <div class="d-flex">
+                <span jhiTranslate="fulfillmentApp.fulfillmentDelivery.country">Country</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="deliveryInstructions">
+              <div class="d-flex">
+                <span jhiTranslate="fulfillmentApp.fulfillmentDelivery.deliveryInstructions">Delivery Instructions</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdAt">
+              <div class="d-flex">
+                <span jhiTranslate="fulfillmentApp.fulfillmentDelivery.createdAt">Created At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="updatedAt">
+              <div class="d-flex">
+                <span jhiTranslate="fulfillmentApp.fulfillmentDelivery.updatedAt">Updated At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (delivery of deliveries(); track trackId(delivery)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/fulfillment/delivery', delivery.id, 'view']">{{ delivery.id }}</a>
+              </td>
+              <td>{{ delivery.orderId }}</td>
+              <td [jhiTranslate]="'fulfillmentApp.DeliveryStatus.' + (delivery.status ?? 'null')">
+                {{
+                  { null: '', CREATED: 'CREATED', PREPARING: 'PREPARING', IN_TRANSIT: 'IN_TRANSIT', DELIVERED: 'DELIVERED' }[
+                    delivery.status ?? 'null'
+                  ]
+                }}
+              </td>
+              <td>{{ delivery.customerId }}</td>
+              <td>{{ delivery.name }}</td>
+              <td>{{ delivery.email }}</td>
+              <td>{{ delivery.addressLine1 }}</td>
+              <td>{{ delivery.addressLine2 }}</td>
+              <td>{{ delivery.zipCode }}</td>
+              <td>{{ delivery.city }}</td>
+              <td>{{ delivery.country }}</td>
+              <td>{{ delivery.deliveryInstructions }}</td>
+              <td>{{ delivery.createdAt | formatMediumDatetime }}</td>
+              <td>{{ delivery.updatedAt | formatMediumDatetime }}</td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/fulfillment/delivery', delivery.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Visualizar</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/fulfillment/delivery', delivery.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(delivery)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Excluir</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

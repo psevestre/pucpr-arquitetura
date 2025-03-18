@@ -1,0 +1,39 @@
+# This configuration is intended for development purpose, it's **your** responsibility to harden it for production
+name: inventory
+services:
+  app:
+    image: inventory
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,api-docs
+      - MANAGEMENT_PROMETHEUS_METRICS_EXPORT_ENABLED=true
+      - SPRING_CLOUD_CONSUL_HOST=consul
+      - SPRING_CLOUD_CONSUL_PORT=8500
+      - SPRING_R2DBC_URL=r2dbc:postgresql://postgresql:5432/inventory
+      - SPRING_LIQUIBASE_URL=jdbc:postgresql://postgresql:5432/inventory
+    ports:
+      - 127.0.0.1:8080:8080
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - -f
+        - http://localhost:8080/management/health
+      interval: 5s
+      timeout: 5s
+      retries: 40
+    depends_on:
+      postgresql:
+        condition: service_healthy
+  postgresql:
+    extends:
+      file: ./postgresql.yml
+      service: postgresql
+  consul:
+    extends:
+      file: ./consul.yml
+      service: consul
+  consul-config-loader:
+    extends:
+      file: ./consul.yml
+      service: consul-config-loader

@@ -1,0 +1,39 @@
+application {
+  config {
+    applicationType microservice
+    authenticationType jwt
+    baseName stock
+    buildTool maven
+    cacheProvider no
+    clientFramework angular
+    clientTheme none
+    creationTimestamp 1742258534896
+    databaseType sql
+    devDatabaseType h2Disk
+    enableTranslation true
+    jhipsterVersion "8.9.0"
+    jwtSecretKey "ODY0ZGI5Mzg3MDU4NWY3NGQzMTg3YTFhMzk0NjM4MmY0YTBjOTRjOWZjOWIwMmMxODYyNmFmMmFkZGE1Y2RkNjlmODVjYjJkNTkyYjI1MDU2YzYzOTUxNWM5NjhkZTA4MGI1YzU0YjQyNDg2NGFmMDRlOWI4ZjA5ZTczMzcxZDA="
+    languages [pt-br]
+    microfrontends []
+    nativeLanguage pt-br
+    packageName br.pucpr.examples.inventory.stock
+    prodDatabaseType postgresql
+    reactive false
+    serverPort 8200
+    serviceDiscoveryType consul
+    testFrameworks []
+    withAdminUi false
+  }
+
+  entities *
+}
+
+entity StockItem {
+  sku String required maxlength(128)
+  description String required maxlength(256)
+  available Integer required
+  reserved Integer required min(0)
+  minStock Integer required min(0)
+}
+
+

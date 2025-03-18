@@ -1,0 +1,37 @@
+{
+  "fulfillmentApp": {
+    "fulfillmentDelivery": {
+      "home": {
+        "title": "Deliveries",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Delivery",
+        "createOrEditLabel": "Criar ou editar Delivery",
+        "notFound": "Nenhum Delivery encontrado"
+      },
+      "created": "Um novo Delivery foi criado com o identificador {{ param }}",
+      "updated": "Um Delivery foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Delivery foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Delivery {{ id }}?"
+      },
+      "detail": {
+        "title": "Delivery"
+      },
+      "id": "ID",
+      "orderId": "Order Id",
+      "status": "Status",
+      "customerId": "Customer Id",
+      "name": "Name",
+      "email": "Email",
+      "addressLine1": "Address Line 1",
+      "addressLine2": "Address Line 2",
+      "zipCode": "Zip Code",
+      "city": "City",
+      "country": "Country",
+      "deliveryInstructions": "Delivery Instructions",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "items": "Items"
+    }
+  }
+}

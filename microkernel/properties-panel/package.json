@@ -1,0 +1,50 @@
+{
+  "name": "bpmn-js-example-properties-panel",
+  "version": "0.0.0",
+  "description": "A bpmn-js modeler + properties panel example",
+  "scripts": {
+    "all": "run-s build",
+    "build": "webpack --mode production",
+    "dev": "webpack-dev-server --static=public --open",
+    "start": "run-s dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bpmn-io/bpmn-js-examples",
+    "directory": "properties-panel"
+  },
+  "keywords": [
+    "bpmnjs-example",
+    "bpmn-js-properties-panel"
+  ],
+  "author": {
+    "name": "Nico Rehwaldt",
+    "url": "https://github.com/nikku"
+  },
+  "contributors": [
+    {
+      "name": "bpmn.io contributors",
+      "url": "https://github.com/bpmn-io"
+    }
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@bpmn-io/properties-panel": "^3.23.0",
+    "bpmn-js": "^18.3.1",
+    "bpmn-js-properties-panel": "^5.23.0",
+    "jquery": "^3.5.1",
+    "min-dash": "^4.1.1"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^13.0.0",
+    "css-loader": "^7.1.2",
+    "less-loader": "^12.2.0",
+    "npm-run-all2": "^7.0.2",
+    "raw-loader": "^4.0.2",
+    "sirv-cli": "^3.0.0",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.0"
+  }
+}

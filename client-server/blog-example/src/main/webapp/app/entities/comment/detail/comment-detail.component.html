@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (comment(); as commentRef) {
+      <div>
+        <h2 data-cy="commentDetailsHeading"><span jhiTranslate="blogApp.comment.detail.title">Comment</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">Código</span></dt>
+          <dd>
+            <span>{{ commentRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="blogApp.comment.content">Content</span></dt>
+          <dd>
+            <span>{{ commentRef.content }}</span>
+          </dd>
+          <dt><span jhiTranslate="blogApp.comment.creationDate">Creation Date</span></dt>
+          <dd>
+            <span>{{ commentRef.creationDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="blogApp.comment.publishDate">Publish Date</span></dt>
+          <dd>
+            <span>{{ commentRef.publishDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="blogApp.comment.userId">User Id</span></dt>
+          <dd>
+            <span>{{ commentRef.userId }}</span>
+          </dd>
+          <dt><span jhiTranslate="blogApp.comment.post">Post</span></dt>
+          <dd>
+            @if (comment()!.post) {
+              <div>
+                <a [routerLink]="['/post', comment()!.post?.id, 'view']">{{ commentRef.post?.title }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/comment', commentRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

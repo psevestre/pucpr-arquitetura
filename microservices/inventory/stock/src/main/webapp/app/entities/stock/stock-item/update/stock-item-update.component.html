@@ -1,0 +1,146 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-stock-item-heading" data-cy="StockItemCreateUpdateHeading" jhiTranslate="stockApp.stockStockItem.home.createOrEditLabel">
+        Criar ou editar Stock Item
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="stockApp.stockStockItem.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let skuRef = editForm.get('sku')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_sku" jhiTranslate="stockApp.stockStockItem.sku">Sku</label>
+          <input type="text" class="form-control" name="sku" id="field_sku" data-cy="sku" formControlName="sku" />
+          @if (skuRef.invalid && (skuRef.dirty || skuRef.touched)) {
+            <div>
+              @if (editForm.get('sku')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              @if (editForm.get('sku')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '128' }"
+                  >Este campo não pode ter mais de 128 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let descriptionRef = editForm.get('description')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_description" jhiTranslate="stockApp.stockStockItem.description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+          @if (descriptionRef.invalid && (descriptionRef.dirty || descriptionRef.touched)) {
+            <div>
+              @if (editForm.get('description')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              @if (editForm.get('description')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '256' }"
+                  >Este campo não pode ter mais de 256 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let availableRef = editForm.get('available')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_available" jhiTranslate="stockApp.stockStockItem.available">Available</label>
+          <input type="number" class="form-control" name="available" id="field_available" data-cy="available" formControlName="available" />
+          @if (availableRef.invalid && (availableRef.dirty || availableRef.touched)) {
+            <div>
+              @if (editForm.get('available')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('available')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Este campo é do tipo numérico.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let reservedRef = editForm.get('reserved')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_reserved" jhiTranslate="stockApp.stockStockItem.reserved">Reserved</label>
+          <input type="number" class="form-control" name="reserved" id="field_reserved" data-cy="reserved" formControlName="reserved" />
+          @if (reservedRef.invalid && (reservedRef.dirty || reservedRef.touched)) {
+            <div>
+              @if (editForm.get('reserved')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              @if (editForm.get('reserved')?.errors?.min) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.min" [translateValues]="{ min: '0' }"
+                  >Este campo deve ser maior que 0.</small
+                >
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('reserved')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Este campo é do tipo numérico.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let minStockRef = editForm.get('minStock')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_minStock" jhiTranslate="stockApp.stockStockItem.minStock">Min Stock</label>
+          <input type="number" class="form-control" name="minStock" id="field_minStock" data-cy="minStock" formControlName="minStock" />
+          @if (minStockRef.invalid && (minStockRef.dirty || minStockRef.touched)) {
+            <div>
+              @if (editForm.get('minStock')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              @if (editForm.get('minStock')?.errors?.min) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.min" [translateValues]="{ min: '0' }"
+                  >Este campo deve ser maior que 0.</small
+                >
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('minStock')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Este campo é do tipo numérico.</small
+              >
+            </div>
+          }
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

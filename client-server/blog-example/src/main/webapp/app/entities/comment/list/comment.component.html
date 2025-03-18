@@ -1,0 +1,121 @@
+<div>
+  <h2 id="page-heading" data-cy="CommentHeading">
+    <span jhiTranslate="blogApp.comment.home.title">Comments</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="blogApp.comment.home.refreshListLabel">Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-comment"
+        [routerLink]="['/comment/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="blogApp.comment.home.createLabel">Criar novo Comment</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (comments().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="blogApp.comment.home.notFound">Nenhum Comment encontrado</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">Código</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="content">
+              <div class="d-flex">
+                <span jhiTranslate="blogApp.comment.content">Content</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="creationDate">
+              <div class="d-flex">
+                <span jhiTranslate="blogApp.comment.creationDate">Creation Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="publishDate">
+              <div class="d-flex">
+                <span jhiTranslate="blogApp.comment.publishDate">Publish Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="userId">
+              <div class="d-flex">
+                <span jhiTranslate="blogApp.comment.userId">User Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="post.title">
+              <div class="d-flex">
+                <span jhiTranslate="blogApp.comment.post">Post</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (comment of comments(); track trackId(comment)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/comment', comment.id, 'view']">{{ comment.id }}</a>
+              </td>
+              <td>{{ comment.content }}</td>
+              <td>{{ comment.creationDate | formatMediumDatetime }}</td>
+              <td>{{ comment.publishDate | formatMediumDatetime }}</td>
+              <td>{{ comment.userId }}</td>
+              <td>
+                @if (comment.post) {
+                  <div>
+                    <a [routerLink]="['/post', comment.post.id, 'view']">{{ comment.post.title }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/comment', comment.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Visualizar</span>
+                  </a>
+
+                  <a [routerLink]="['/comment', comment.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(comment)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Excluir</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

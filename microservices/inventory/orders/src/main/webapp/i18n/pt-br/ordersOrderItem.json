@@ -1,0 +1,29 @@
+{
+  "ordersApp": {
+    "ordersOrderItem": {
+      "home": {
+        "title": "Order Items",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Order Item",
+        "createOrEditLabel": "Criar ou editar Order Item",
+        "notFound": "Nenhum Order Item encontrado"
+      },
+      "created": "Um novo Order Item foi criado com o identificador {{ param }}",
+      "updated": "Um Order Item foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Order Item foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Order Item {{ id }}?"
+      },
+      "detail": {
+        "title": "Order Item"
+      },
+      "id": "ID",
+      "sku": "Sku",
+      "description": "Description",
+      "quantity": "Quantity",
+      "unitPrice": "Unit Price",
+      "totalPrice": "Total Price",
+      "order": "Order"
+    }
+  }
+}

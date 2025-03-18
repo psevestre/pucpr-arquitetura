@@ -1,0 +1,27 @@
+{
+  "blogApp": {
+    "author": {
+      "home": {
+        "title": "Authors",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Author",
+        "createOrEditLabel": "Criar ou editar Author",
+        "notFound": "Nenhum Author encontrado"
+      },
+      "created": "Um novo Author foi criado com o identificador {{ param }}",
+      "updated": "Um Author foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Author foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Author {{ id }}?"
+      },
+      "detail": {
+        "title": "Author"
+      },
+      "id": "ID",
+      "name": "Name",
+      "email": "Email",
+      "active": "Active",
+      "post": "Post"
+    }
+  }
+}

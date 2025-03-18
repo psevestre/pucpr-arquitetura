@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (post(); as postRef) {
+      <div>
+        <h2 data-cy="postDetailsHeading"><span jhiTranslate="blogApp.post.detail.title">Post</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">Código</span></dt>
+          <dd>
+            <span>{{ postRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="blogApp.post.title">Title</span></dt>
+          <dd>
+            <span>{{ postRef.title }}</span>
+          </dd>
+          <dt><span jhiTranslate="blogApp.post.content">Content</span></dt>
+          <dd>
+            <span>{{ postRef.content }}</span>
+          </dd>
+          <dt><span jhiTranslate="blogApp.post.creationDate">Creation Date</span></dt>
+          <dd>
+            <span>{{ postRef.creationDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="blogApp.post.publishDate">Publish Date</span></dt>
+          <dd>
+            <span>{{ postRef.publishDate | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="blogApp.post.author">Author</span></dt>
+          <dd>
+            @if (post()!.author) {
+              <div>
+                <a [routerLink]="['/author', post()!.author?.id, 'view']">{{ postRef.author?.name }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/post', postRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

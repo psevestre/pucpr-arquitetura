@@ -1,0 +1,39 @@
+{
+  "annotations": {
+    "changelogDate": "20250316220506"
+  },
+  "applications": ["blog"],
+  "fields": [
+    {
+      "fieldName": "content",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "512"
+    },
+    {
+      "fieldName": "creationDate",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "publishDate",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "userId",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "Comment",
+  "relationships": [
+    {
+      "otherEntityField": "title",
+      "otherEntityName": "post",
+      "relationshipName": "post",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}

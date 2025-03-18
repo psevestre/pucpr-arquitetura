@@ -1,0 +1,148 @@
+<div>
+  <h2 id="page-heading" data-cy="OrderCustomerHeading">
+    <span jhiTranslate="ordersApp.ordersOrderCustomer.home.title">Order Customers</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="ordersApp.ordersOrderCustomer.home.refreshListLabel">Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-order-customer"
+        [routerLink]="['/orders/order-customer/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="ordersApp.ordersOrderCustomer.home.createLabel">Criar novo Order Customer</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (orderCustomers().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="ordersApp.ordersOrderCustomer.home.notFound">Nenhum Order Customer encontrado</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">Código</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="customerId">
+              <div class="d-flex">
+                <span jhiTranslate="ordersApp.ordersOrderCustomer.customerId">Customer Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="name">
+              <div class="d-flex">
+                <span jhiTranslate="ordersApp.ordersOrderCustomer.name">Name</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="email">
+              <div class="d-flex">
+                <span jhiTranslate="ordersApp.ordersOrderCustomer.email">Email</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="addressLine1">
+              <div class="d-flex">
+                <span jhiTranslate="ordersApp.ordersOrderCustomer.addressLine1">Address Line 1</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="addressLine2">
+              <div class="d-flex">
+                <span jhiTranslate="ordersApp.ordersOrderCustomer.addressLine2">Address Line 2</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="zipCode">
+              <div class="d-flex">
+                <span jhiTranslate="ordersApp.ordersOrderCustomer.zipCode">Zip Code</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="city">
+              <div class="d-flex">
+                <span jhiTranslate="ordersApp.ordersOrderCustomer.city">City</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="country">
+              <div class="d-flex">
+                <span jhiTranslate="ordersApp.ordersOrderCustomer.country">Country</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (orderCustomer of orderCustomers(); track trackId(orderCustomer)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/orders/order-customer', orderCustomer.id, 'view']">{{ orderCustomer.id }}</a>
+              </td>
+              <td>{{ orderCustomer.customerId }}</td>
+              <td>{{ orderCustomer.name }}</td>
+              <td>{{ orderCustomer.email }}</td>
+              <td>{{ orderCustomer.addressLine1 }}</td>
+              <td>{{ orderCustomer.addressLine2 }}</td>
+              <td>{{ orderCustomer.zipCode }}</td>
+              <td>{{ orderCustomer.city }}</td>
+              <td>{{ orderCustomer.country }}</td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/orders/order-customer', orderCustomer.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Visualizar</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/orders/order-customer', orderCustomer.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(orderCustomer)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Excluir</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

@@ -1,0 +1,116 @@
+<div>
+  <h2 id="page-heading" data-cy="StockItemHeading">
+    <span jhiTranslate="stockApp.stockStockItem.home.title">Stock Items</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="stockApp.stockStockItem.home.refreshListLabel">Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-stock-item"
+        [routerLink]="['/stock/stock-item/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="stockApp.stockStockItem.home.createLabel">Criar novo Stock Item</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (stockItems().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="stockApp.stockStockItem.home.notFound">Nenhum Stock Item encontrado</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">Código</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="sku">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.stockStockItem.sku">Sku</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="description">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.stockStockItem.description">Description</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="available">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.stockStockItem.available">Available</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="reserved">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.stockStockItem.reserved">Reserved</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="minStock">
+              <div class="d-flex">
+                <span jhiTranslate="stockApp.stockStockItem.minStock">Min Stock</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (stockItem of stockItems(); track trackId(stockItem)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/stock/stock-item', stockItem.id, 'view']">{{ stockItem.id }}</a>
+              </td>
+              <td>{{ stockItem.sku }}</td>
+              <td>{{ stockItem.description }}</td>
+              <td>{{ stockItem.available }}</td>
+              <td>{{ stockItem.reserved }}</td>
+              <td>{{ stockItem.minStock }}</td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/stock/stock-item', stockItem.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Visualizar</span>
+                  </a>
+
+                  <a [routerLink]="['/stock/stock-item', stockItem.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(stockItem)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Excluir</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

@@ -1,0 +1,32 @@
+{
+  "ordersApp": {
+    "ordersOrderCustomer": {
+      "home": {
+        "title": "Order Customers",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Order Customer",
+        "createOrEditLabel": "Criar ou editar Order Customer",
+        "notFound": "Nenhum Order Customer encontrado"
+      },
+      "created": "Um novo Order Customer foi criado com o identificador {{ param }}",
+      "updated": "Um Order Customer foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Order Customer foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Order Customer {{ id }}?"
+      },
+      "detail": {
+        "title": "Order Customer"
+      },
+      "id": "ID",
+      "customerId": "Customer Id",
+      "name": "Name",
+      "email": "Email",
+      "addressLine1": "Address Line 1",
+      "addressLine2": "Address Line 2",
+      "zipCode": "Zip Code",
+      "city": "City",
+      "country": "Country",
+      "orders": "Orders"
+    }
+  }
+}

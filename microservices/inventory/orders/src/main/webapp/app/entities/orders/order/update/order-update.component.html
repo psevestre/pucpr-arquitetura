@@ -1,0 +1,118 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-order-heading" data-cy="OrderCreateUpdateHeading" jhiTranslate="ordersApp.ordersOrder.home.createOrEditLabel">
+        Criar ou editar Order
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="ordersApp.ordersOrder.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let orderIdRef = editForm.get('orderId')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_orderId" jhiTranslate="ordersApp.ordersOrder.orderId">Order Id</label>
+          <input type="text" class="form-control" name="orderId" id="field_orderId" data-cy="orderId" formControlName="orderId" />
+          @if (orderIdRef.invalid && (orderIdRef.dirty || orderIdRef.touched)) {
+            <div>
+              @if (editForm.get('orderId')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              @if (editForm.get('orderId')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '32' }"
+                  >Este campo não pode ter mais de 32 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let createdAtRef = editForm.get('createdAt')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_createdAt" jhiTranslate="ordersApp.ordersOrder.createdAt">Created At</label>
+          <div class="d-flex">
+            <input
+              id="field_createdAt"
+              data-cy="createdAt"
+              type="datetime-local"
+              class="form-control"
+              name="createdAt"
+              formControlName="createdAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (createdAtRef.invalid && (createdAtRef.dirty || createdAtRef.touched)) {
+            <div>
+              @if (editForm.get('createdAt')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('createdAt')?.errors?.datetimelocal"
+                jhiTranslate="entity.validation.datetimelocal"
+                >Este campo é do tipo data/hora.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let statusRef = editForm.get('status')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_status" jhiTranslate="ordersApp.ordersOrder.status">Status</label>
+          <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
+            <option [ngValue]="null">{{ 'ordersApp.OrderStatus.null' | translate }}</option>
+            @for (orderStatus of orderStatusValues; track $index) {
+              <option [value]="orderStatus">{{ 'ordersApp.OrderStatus.' + orderStatus | translate }}</option>
+            }
+          </select>
+          @if (statusRef.invalid && (statusRef.dirty || statusRef.touched)) {
+            <div>
+              @if (editForm.get('status')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_customer" jhiTranslate="ordersApp.ordersOrder.customer">Customer</label>
+          <select
+            class="form-control"
+            id="field_customer"
+            data-cy="customer"
+            name="customer"
+            formControlName="customer"
+            [compareWith]="compareOrderCustomer"
+          >
+            <option [ngValue]="null"></option>
+            @for (orderCustomerOption of orderCustomersSharedCollection; track $index) {
+              <option [ngValue]="orderCustomerOption">{{ orderCustomerOption.name }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

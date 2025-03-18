@@ -1,0 +1,3 @@
+org.springframework.test.context.ContextCustomizerFactory = \
+    br.pucpr.examples.inventory.orders.config.\
+    SqlTestContainersSpringContextCustomizerFactory

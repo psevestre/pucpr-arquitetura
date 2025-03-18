@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (author(); as authorRef) {
+      <div>
+        <h2 data-cy="authorDetailsHeading"><span jhiTranslate="blogApp.author.detail.title">Author</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">Código</span></dt>
+          <dd>
+            <span>{{ authorRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="blogApp.author.name">Name</span></dt>
+          <dd>
+            <span>{{ authorRef.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="blogApp.author.email">Email</span></dt>
+          <dd>
+            <span>{{ authorRef.email }}</span>
+          </dd>
+          <dt><span jhiTranslate="blogApp.author.active">Active</span></dt>
+          <dd>
+            <span>{{ authorRef.active }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/author', authorRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

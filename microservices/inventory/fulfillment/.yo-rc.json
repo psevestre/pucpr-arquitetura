@@ -1,0 +1,30 @@
+{
+  "generator-jhipster": {
+    "applicationType": "microservice",
+    "authenticationType": "jwt",
+    "baseName": "fulfillment",
+    "buildTool": "maven",
+    "cacheProvider": "no",
+    "clientFramework": "angular",
+    "clientTheme": "none",
+    "creationTimestamp": 1742258534896,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "enableTranslation": true,
+    "entities": ["Delivery", "DeliveryItem"],
+    "jhipsterVersion": "8.9.0",
+    "jwtSecretKey": "ZGQzMDljOTg1YzYxOWVjMjVlM2Y2MjJkZThkODAxMWM3YjRiMDQzYzAxMzQ4NWEzMTk3NGYyNDJkZTJlNzEyYmZkMmFhMWIzZjMwMjQzMzVhNTY3NGIzNjY0ZDY1YmJiYWEyNWIyMmE4OTBkMGNhMjhiYzM4OWU1NTNmNDJmMjg=",
+    "languages": ["pt-br"],
+    "lastLiquibaseTimestamp": 1742258654000,
+    "microfrontends": [],
+    "nativeLanguage": "pt-br",
+    "packageName": "br.pucpr.examples.inventory.fulfillment",
+    "prodDatabaseType": "postgresql",
+    "reactive": false,
+    "serverPort": "8400",
+    "serviceDiscoveryType": "consul",
+    "skipUserManagement": true,
+    "testFrameworks": [],
+    "withAdminUi": false
+  }
+}

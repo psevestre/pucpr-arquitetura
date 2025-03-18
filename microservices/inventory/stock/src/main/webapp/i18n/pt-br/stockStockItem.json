@@ -1,0 +1,28 @@
+{
+  "stockApp": {
+    "stockStockItem": {
+      "home": {
+        "title": "Stock Items",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Stock Item",
+        "createOrEditLabel": "Criar ou editar Stock Item",
+        "notFound": "Nenhum Stock Item encontrado"
+      },
+      "created": "Um novo Stock Item foi criado com o identificador {{ param }}",
+      "updated": "Um Stock Item foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Stock Item foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Stock Item {{ id }}?"
+      },
+      "detail": {
+        "title": "Stock Item"
+      },
+      "id": "ID",
+      "sku": "Sku",
+      "description": "Description",
+      "available": "Available",
+      "reserved": "Reserved",
+      "minStock": "Min Stock"
+    }
+  }
+}

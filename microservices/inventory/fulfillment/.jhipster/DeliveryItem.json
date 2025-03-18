@@ -1,0 +1,51 @@
+{
+  "annotations": {
+    "changelogDate": "20250318004414"
+  },
+  "applications": ["fulfillment"],
+  "clientRootFolder": "fulfillment",
+  "databaseType": "sql",
+  "fields": [
+    {
+      "fieldName": "sku",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "128"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "quantity",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "weight",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "volume",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    }
+  ],
+  "microserviceName": "fulfillment",
+  "name": "DeliveryItem",
+  "relationships": [
+    {
+      "otherEntityField": "orderId",
+      "otherEntityName": "delivery",
+      "otherEntityRelationshipName": "items",
+      "relationshipName": "delivery",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}

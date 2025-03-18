@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (orderItem(); as orderItemRef) {
+      <div>
+        <h2 data-cy="orderItemDetailsHeading"><span jhiTranslate="ordersApp.ordersOrderItem.detail.title">Order Item</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">Código</span></dt>
+          <dd>
+            <span>{{ orderItemRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="ordersApp.ordersOrderItem.sku">Sku</span></dt>
+          <dd>
+            <span>{{ orderItemRef.sku }}</span>
+          </dd>
+          <dt><span jhiTranslate="ordersApp.ordersOrderItem.description">Description</span></dt>
+          <dd>
+            <span>{{ orderItemRef.description }}</span>
+          </dd>
+          <dt><span jhiTranslate="ordersApp.ordersOrderItem.quantity">Quantity</span></dt>
+          <dd>
+            <span>{{ orderItemRef.quantity }}</span>
+          </dd>
+          <dt><span jhiTranslate="ordersApp.ordersOrderItem.unitPrice">Unit Price</span></dt>
+          <dd>
+            <span>{{ orderItemRef.unitPrice }}</span>
+          </dd>
+          <dt><span jhiTranslate="ordersApp.ordersOrderItem.totalPrice">Total Price</span></dt>
+          <dd>
+            <span>{{ orderItemRef.totalPrice }}</span>
+          </dd>
+          <dt><span jhiTranslate="ordersApp.ordersOrderItem.order">Order</span></dt>
+          <dd>
+            @if (orderItem()!.order) {
+              <div>
+                <a [routerLink]="['/orders/order', orderItem()!.order?.id, 'view']">{{ orderItemRef.order?.orderId }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/orders/order-item', orderItemRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,316 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-delivery-heading"
+        data-cy="DeliveryCreateUpdateHeading"
+        jhiTranslate="fulfillmentApp.fulfillmentDelivery.home.createOrEditLabel"
+      >
+        Criar ou editar Delivery
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="fulfillmentApp.fulfillmentDelivery.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let orderIdRef = editForm.get('orderId')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_orderId" jhiTranslate="fulfillmentApp.fulfillmentDelivery.orderId">Order Id</label>
+          <input type="text" class="form-control" name="orderId" id="field_orderId" data-cy="orderId" formControlName="orderId" />
+          @if (orderIdRef.invalid && (orderIdRef.dirty || orderIdRef.touched)) {
+            <div>
+              @if (editForm.get('orderId')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let statusRef = editForm.get('status')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_status" jhiTranslate="fulfillmentApp.fulfillmentDelivery.status">Status</label>
+          <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
+            <option [ngValue]="null">{{ 'fulfillmentApp.DeliveryStatus.null' | translate }}</option>
+            @for (deliveryStatus of deliveryStatusValues; track $index) {
+              <option [value]="deliveryStatus">{{ 'fulfillmentApp.DeliveryStatus.' + deliveryStatus | translate }}</option>
+            }
+          </select>
+          @if (statusRef.invalid && (statusRef.dirty || statusRef.touched)) {
+            <div>
+              @if (editForm.get('status')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let customerIdRef = editForm.get('customerId')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_customerId" jhiTranslate="fulfillmentApp.fulfillmentDelivery.customerId">Customer Id</label>
+          <input
+            type="text"
+            class="form-control"
+            name="customerId"
+            id="field_customerId"
+            data-cy="customerId"
+            formControlName="customerId"
+          />
+          @if (customerIdRef.invalid && (customerIdRef.dirty || customerIdRef.touched)) {
+            <div>
+              @if (editForm.get('customerId')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              @if (editForm.get('customerId')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '128' }"
+                  >Este campo não pode ter mais de 128 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let nameRef = editForm.get('name')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_name" jhiTranslate="fulfillmentApp.fulfillmentDelivery.name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          @if (nameRef.invalid && (nameRef.dirty || nameRef.touched)) {
+            <div>
+              @if (editForm.get('name')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              @if (editForm.get('name')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '128' }"
+                  >Este campo não pode ter mais de 128 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let emailRef = editForm.get('email')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_email" jhiTranslate="fulfillmentApp.fulfillmentDelivery.email">Email</label>
+          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+          @if (emailRef.invalid && (emailRef.dirty || emailRef.touched)) {
+            <div>
+              @if (editForm.get('email')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              @if (editForm.get('email')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '128' }"
+                  >Este campo não pode ter mais de 128 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let addressLine1Ref = editForm.get('addressLine1')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_addressLine1" jhiTranslate="fulfillmentApp.fulfillmentDelivery.addressLine1"
+            >Address Line 1</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="addressLine1"
+            id="field_addressLine1"
+            data-cy="addressLine1"
+            formControlName="addressLine1"
+          />
+          @if (addressLine1Ref.invalid && (addressLine1Ref.dirty || addressLine1Ref.touched)) {
+            <div>
+              @if (editForm.get('addressLine1')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              @if (editForm.get('addressLine1')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '128' }"
+                  >Este campo não pode ter mais de 128 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let addressLine2Ref = editForm.get('addressLine2')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_addressLine2" jhiTranslate="fulfillmentApp.fulfillmentDelivery.addressLine2"
+            >Address Line 2</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="addressLine2"
+            id="field_addressLine2"
+            data-cy="addressLine2"
+            formControlName="addressLine2"
+          />
+          @if (addressLine2Ref.invalid && (addressLine2Ref.dirty || addressLine2Ref.touched)) {
+            <div>
+              @if (editForm.get('addressLine2')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              @if (editForm.get('addressLine2')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '128' }"
+                  >Este campo não pode ter mais de 128 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let zipCodeRef = editForm.get('zipCode')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_zipCode" jhiTranslate="fulfillmentApp.fulfillmentDelivery.zipCode">Zip Code</label>
+          <input type="text" class="form-control" name="zipCode" id="field_zipCode" data-cy="zipCode" formControlName="zipCode" />
+          @if (zipCodeRef.invalid && (zipCodeRef.dirty || zipCodeRef.touched)) {
+            <div>
+              @if (editForm.get('zipCode')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              @if (editForm.get('zipCode')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '64' }"
+                  >Este campo não pode ter mais de 64 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let cityRef = editForm.get('city')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_city" jhiTranslate="fulfillmentApp.fulfillmentDelivery.city">City</label>
+          <input type="text" class="form-control" name="city" id="field_city" data-cy="city" formControlName="city" />
+          @if (cityRef.invalid && (cityRef.dirty || cityRef.touched)) {
+            <div>
+              @if (editForm.get('city')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '128' }"
+                  >Este campo não pode ter mais de 128 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let countryRef = editForm.get('country')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_country" jhiTranslate="fulfillmentApp.fulfillmentDelivery.country">Country</label>
+          <input type="text" class="form-control" name="country" id="field_country" data-cy="country" formControlName="country" />
+          @if (countryRef.invalid && (countryRef.dirty || countryRef.touched)) {
+            <div>
+              @if (editForm.get('country')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '64' }"
+                  >Este campo não pode ter mais de 64 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let deliveryInstructionsRef = editForm.get('deliveryInstructions')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_deliveryInstructions" jhiTranslate="fulfillmentApp.fulfillmentDelivery.deliveryInstructions"
+            >Delivery Instructions</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="deliveryInstructions"
+            id="field_deliveryInstructions"
+            data-cy="deliveryInstructions"
+            formControlName="deliveryInstructions"
+          />
+          @if (deliveryInstructionsRef.invalid && (deliveryInstructionsRef.dirty || deliveryInstructionsRef.touched)) {
+            <div>
+              @if (editForm.get('deliveryInstructions')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '512' }"
+                  >Este campo não pode ter mais de 512 caracteres.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        @let createdAtRef = editForm.get('createdAt')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_createdAt" jhiTranslate="fulfillmentApp.fulfillmentDelivery.createdAt">Created At</label>
+          <div class="d-flex">
+            <input
+              id="field_createdAt"
+              data-cy="createdAt"
+              type="datetime-local"
+              class="form-control"
+              name="createdAt"
+              formControlName="createdAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (createdAtRef.invalid && (createdAtRef.dirty || createdAtRef.touched)) {
+            <div>
+              @if (editForm.get('createdAt')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('createdAt')?.errors?.datetimelocal"
+                jhiTranslate="entity.validation.datetimelocal"
+                >Este campo é do tipo data/hora.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let updatedAtRef = editForm.get('updatedAt')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_updatedAt" jhiTranslate="fulfillmentApp.fulfillmentDelivery.updatedAt">Updated At</label>
+          <div class="d-flex">
+            <input
+              id="field_updatedAt"
+              data-cy="updatedAt"
+              type="datetime-local"
+              class="form-control"
+              name="updatedAt"
+              formControlName="updatedAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (updatedAtRef.invalid && (updatedAtRef.dirty || updatedAtRef.touched)) {
+            <div>
+              @if (editForm.get('updatedAt')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('updatedAt')?.errors?.datetimelocal"
+                jhiTranslate="entity.validation.datetimelocal"
+                >Este campo é do tipo data/hora.</small
+              >
+            </div>
+          }
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

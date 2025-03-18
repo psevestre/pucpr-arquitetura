@@ -1,0 +1,29 @@
+{
+  "fulfillmentApp": {
+    "fulfillmentDeliveryItem": {
+      "home": {
+        "title": "Delivery Items",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Delivery Item",
+        "createOrEditLabel": "Criar ou editar Delivery Item",
+        "notFound": "Nenhum Delivery Item encontrado"
+      },
+      "created": "Um novo Delivery Item foi criado com o identificador {{ param }}",
+      "updated": "Um Delivery Item foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Delivery Item foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Delivery Item {{ id }}?"
+      },
+      "detail": {
+        "title": "Delivery Item"
+      },
+      "id": "ID",
+      "sku": "Sku",
+      "description": "Description",
+      "quantity": "Quantity",
+      "weight": "Weight",
+      "volume": "Volume",
+      "delivery": "Delivery"
+    }
+  }
+}

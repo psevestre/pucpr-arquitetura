@@ -1,0 +1,119 @@
+<div>
+  <h2 id="page-heading" data-cy="OrderHeading">
+    <span jhiTranslate="ordersApp.ordersOrder.home.title">Orders</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="ordersApp.ordersOrder.home.refreshListLabel">Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-order"
+        [routerLink]="['/orders/order/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="ordersApp.ordersOrder.home.createLabel">Criar novo Order</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (orders().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="ordersApp.ordersOrder.home.notFound">Nenhum Order encontrado</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">Código</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="orderId">
+              <div class="d-flex">
+                <span jhiTranslate="ordersApp.ordersOrder.orderId">Order Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdAt">
+              <div class="d-flex">
+                <span jhiTranslate="ordersApp.ordersOrder.createdAt">Created At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="status">
+              <div class="d-flex">
+                <span jhiTranslate="ordersApp.ordersOrder.status">Status</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="customer.name">
+              <div class="d-flex">
+                <span jhiTranslate="ordersApp.ordersOrder.customer">Customer</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (order of orders(); track trackId(order)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/orders/order', order.id, 'view']">{{ order.id }}</a>
+              </td>
+              <td>{{ order.orderId }}</td>
+              <td>{{ order.createdAt | formatMediumDatetime }}</td>
+              <td [jhiTranslate]="'ordersApp.OrderStatus.' + (order.status ?? 'null')">
+                {{
+                  { null: '', CREATED: 'CREATED', CONFIRMED: 'CONFIRMED', IN_TRANSIT: 'IN_TRANSIT', DELIVERED: 'DELIVERED' }[
+                    order.status ?? 'null'
+                  ]
+                }}
+              </td>
+              <td>
+                @if (order.customer) {
+                  <div>
+                    <a [routerLink]="['/orders/order-customer', order.customer.id, 'view']">{{ order.customer.name }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/orders/order', order.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Visualizar</span>
+                  </a>
+
+                  <a [routerLink]="['/orders/order', order.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(order)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Excluir</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

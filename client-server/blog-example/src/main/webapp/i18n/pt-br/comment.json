@@ -1,0 +1,28 @@
+{
+  "blogApp": {
+    "comment": {
+      "home": {
+        "title": "Comments",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Comment",
+        "createOrEditLabel": "Criar ou editar Comment",
+        "notFound": "Nenhum Comment encontrado"
+      },
+      "created": "Um novo Comment foi criado com o identificador {{ param }}",
+      "updated": "Um Comment foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Comment foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Comment {{ id }}?"
+      },
+      "detail": {
+        "title": "Comment"
+      },
+      "id": "ID",
+      "content": "Content",
+      "creationDate": "Creation Date",
+      "publishDate": "Publish Date",
+      "userId": "User Id",
+      "post": "Post"
+    }
+  }
+}

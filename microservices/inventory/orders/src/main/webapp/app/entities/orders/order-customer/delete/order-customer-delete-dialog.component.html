@@ -1,0 +1,28 @@
+@if (orderCustomer) {
+  <form name="deleteForm" (ngSubmit)="confirmDelete(orderCustomer.id!)">
+    <div class="modal-header">
+      <h4 class="modal-title" data-cy="orderCustomerDeleteDialogHeading" jhiTranslate="entity.delete.title">Confirme a exclusão</h4>
+    </div>
+
+    <div class="modal-body">
+      <jhi-alert-error></jhi-alert-error>
+      <p
+        id="jhi-delete-orderCustomer-heading"
+        jhiTranslate="ordersApp.ordersOrderCustomer.delete.question"
+        [translateValues]="{ id: orderCustomer.id }"
+      >
+        Tem certeza de que deseja excluir Order Customer {{ orderCustomer.id }}?
+      </p>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+        <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+      </button>
+
+      <button id="jhi-confirm-delete-orderCustomer" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
+        <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.delete">Excluir</span>
+      </button>
+    </div>
+  </form>
+}

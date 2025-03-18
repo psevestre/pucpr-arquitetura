@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (deliveryItem(); as deliveryItemRef) {
+      <div>
+        <h2 data-cy="deliveryItemDetailsHeading">
+          <span jhiTranslate="fulfillmentApp.fulfillmentDeliveryItem.detail.title">Delivery Item</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">Código</span></dt>
+          <dd>
+            <span>{{ deliveryItemRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="fulfillmentApp.fulfillmentDeliveryItem.sku">Sku</span></dt>
+          <dd>
+            <span>{{ deliveryItemRef.sku }}</span>
+          </dd>
+          <dt><span jhiTranslate="fulfillmentApp.fulfillmentDeliveryItem.description">Description</span></dt>
+          <dd>
+            <span>{{ deliveryItemRef.description }}</span>
+          </dd>
+          <dt><span jhiTranslate="fulfillmentApp.fulfillmentDeliveryItem.quantity">Quantity</span></dt>
+          <dd>
+            <span>{{ deliveryItemRef.quantity }}</span>
+          </dd>
+          <dt><span jhiTranslate="fulfillmentApp.fulfillmentDeliveryItem.weight">Weight</span></dt>
+          <dd>
+            <span>{{ deliveryItemRef.weight }}</span>
+          </dd>
+          <dt><span jhiTranslate="fulfillmentApp.fulfillmentDeliveryItem.volume">Volume</span></dt>
+          <dd>
+            <span>{{ deliveryItemRef.volume }}</span>
+          </dd>
+          <dt><span jhiTranslate="fulfillmentApp.fulfillmentDeliveryItem.delivery">Delivery</span></dt>
+          <dd>
+            @if (deliveryItem()!.delivery) {
+              <div>
+                <a [routerLink]="['/fulfillment/delivery', deliveryItem()!.delivery?.id, 'view']">{{
+                  deliveryItemRef.delivery?.orderId
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/fulfillment/delivery-item', deliveryItemRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,43 @@
+{
+  "generator-jhipster": {
+    "applicationType": "gateway",
+    "authenticationType": "jwt",
+    "baseName": "inventory",
+    "buildTool": "maven",
+    "cacheProvider": null,
+    "clientFramework": "angular",
+    "clientTestFrameworks": [],
+    "clientTheme": "none",
+    "creationTimestamp": 1742250758132,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "enableHibernateCache": null,
+    "enableTranslation": true,
+    "entities": [],
+    "feignClient": null,
+    "jhipsterVersion": "8.9.0",
+    "jwtSecretKey": "ODY0ZGI5Mzg3MDU4NWY3NGQzMTg3YTFhMzk0NjM4MmY0YTBjOTRjOWZjOWIwMmMxODYyNmFmMmFkZGE1Y2RkNjlmODVjYjJkNTkyYjI1MDU2YzYzOTUxNWM5NjhkZTA4MGI1YzU0YjQyNDg2NGFmMDRlOWI4ZjA5ZTczMzcxZDA=",
+    "languages": ["pt-br"],
+    "microfrontend": true,
+    "microfrontends": [
+      {
+        "baseName": "stock"
+      },
+      {
+        "baseName": "orders"
+      },
+      {
+        "baseName": "fulfillment"
+      }
+    ],
+    "nativeLanguage": "pt-br",
+    "packageName": "br.pucpr.examples.inventory",
+    "prodDatabaseType": "postgresql",
+    "reactive": true,
+    "serverPort": 8080,
+    "serviceDiscoveryType": "consul",
+    "syncUserWithIdp": null,
+    "testFrameworks": [],
+    "withAdminUi": true
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "annotations": {
+    "changelogDate": "20250318012544"
+  },
+  "applications": ["orders"],
+  "clientRootFolder": "orders",
+  "databaseType": "sql",
+  "entityTableName": "jhi_order",
+  "fields": [
+    {
+      "fieldName": "orderId",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "32"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "OrderStatus",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "CREATED,CONFIRMED,IN_TRANSIT,DELIVERED"
+    }
+  ],
+  "microserviceName": "orders",
+  "name": "Order",
+  "relationships": [
+    {
+      "otherEntityField": "sku",
+      "otherEntityName": "orderItem",
+      "otherEntityRelationshipName": "order",
+      "relationshipName": "items",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "orderCustomer",
+      "otherEntityRelationshipName": "orders",
+      "relationshipName": "customer",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}

@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (stockItem(); as stockItemRef) {
+      <div>
+        <h2 data-cy="stockItemDetailsHeading"><span jhiTranslate="stockApp.stockStockItem.detail.title">Stock Item</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">Código</span></dt>
+          <dd>
+            <span>{{ stockItemRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.stockStockItem.sku">Sku</span></dt>
+          <dd>
+            <span>{{ stockItemRef.sku }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.stockStockItem.description">Description</span></dt>
+          <dd>
+            <span>{{ stockItemRef.description }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.stockStockItem.available">Available</span></dt>
+          <dd>
+            <span>{{ stockItemRef.available }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.stockStockItem.reserved">Reserved</span></dt>
+          <dd>
+            <span>{{ stockItemRef.reserved }}</span>
+          </dd>
+          <dt><span jhiTranslate="stockApp.stockStockItem.minStock">Min Stock</span></dt>
+          <dd>
+            <span>{{ stockItemRef.minStock }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/stock/stock-item', stockItemRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,69 @@
+application {
+  config {
+    applicationType microservice
+    authenticationType jwt
+    baseName orders
+    buildTool maven
+    cacheProvider no
+    clientFramework angular
+    clientTheme none
+    creationTimestamp 1742258534896
+    databaseType sql
+    devDatabaseType h2Disk
+    enableTranslation true
+    jhipsterVersion "8.9.0"
+    jwtSecretKey "ZGQzMDljOTg1YzYxOWVjMjVlM2Y2MjJkZThkODAxMWM3YjRiMDQzYzAxMzQ4NWEzMTk3NGYyNDJkZTJlNzEyYmZkMmFhMWIzZjMwMjQzMzVhNTY3NGIzNjY0ZDY1YmJiYWEyNWIyMmE4OTBkMGNhMjhiYzM4OWU1NTNmNDJmMjg="
+    languages [pt-br]
+    microfrontends []
+    nativeLanguage pt-br
+    packageName br.pucpr.examples.inventory.orders
+    prodDatabaseType postgresql
+    reactive false
+    serverPort 8100
+    serviceDiscoveryType consul
+    testFrameworks []
+    withAdminUi false
+  }
+
+  entities *
+}
+
+enum OrderStatus {
+  CREATED,
+  CONFIRMED,
+  IN_TRANSIT,
+  DELIVERED
+}
+
+entity Order {
+  orderId String required maxlength(32)
+  createdAt Instant required
+  status OrderStatus required
+}
+
+entity OrderItem {
+  sku String required maxlength(128)
+  description String
+  quantity Integer required min(0)
+  unitPrice BigDecimal required min(0)
+  totalPrice BigDecimal required min(0)
+}
+
+entity OrderCustomer {
+  customerId String required maxlength(128)
+  name String required maxlength(128)
+  email String required maxlength(128)
+  addressLine1 String required maxlength(128)
+  addressLine2 String required maxlength(128)
+  zipCode String required maxlength(64)
+  city String maxlength(128)
+  country String maxlength(64)
+}
+
+relationship OneToMany {
+  OrderCustomer{orders(orderId)} to Order{customer(name)}
+}
+
+relationship OneToMany {
+  Order{items(sku)} to OrderItem{order(orderId)}
+}

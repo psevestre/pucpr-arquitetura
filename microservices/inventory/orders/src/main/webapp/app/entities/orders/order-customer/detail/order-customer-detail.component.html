@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (orderCustomer(); as orderCustomerRef) {
+      <div>
+        <h2 data-cy="orderCustomerDetailsHeading"><span jhiTranslate="ordersApp.ordersOrderCustomer.detail.title">Order Customer</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">Código</span></dt>
+          <dd>
+            <span>{{ orderCustomerRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="ordersApp.ordersOrderCustomer.customerId">Customer Id</span></dt>
+          <dd>
+            <span>{{ orderCustomerRef.customerId }}</span>
+          </dd>
+          <dt><span jhiTranslate="ordersApp.ordersOrderCustomer.name">Name</span></dt>
+          <dd>
+            <span>{{ orderCustomerRef.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="ordersApp.ordersOrderCustomer.email">Email</span></dt>
+          <dd>
+            <span>{{ orderCustomerRef.email }}</span>
+          </dd>
+          <dt><span jhiTranslate="ordersApp.ordersOrderCustomer.addressLine1">Address Line 1</span></dt>
+          <dd>
+            <span>{{ orderCustomerRef.addressLine1 }}</span>
+          </dd>
+          <dt><span jhiTranslate="ordersApp.ordersOrderCustomer.addressLine2">Address Line 2</span></dt>
+          <dd>
+            <span>{{ orderCustomerRef.addressLine2 }}</span>
+          </dd>
+          <dt><span jhiTranslate="ordersApp.ordersOrderCustomer.zipCode">Zip Code</span></dt>
+          <dd>
+            <span>{{ orderCustomerRef.zipCode }}</span>
+          </dd>
+          <dt><span jhiTranslate="ordersApp.ordersOrderCustomer.city">City</span></dt>
+          <dd>
+            <span>{{ orderCustomerRef.city }}</span>
+          </dd>
+          <dt><span jhiTranslate="ordersApp.ordersOrderCustomer.country">Country</span></dt>
+          <dd>
+            <span>{{ orderCustomerRef.country }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/orders/order-customer', orderCustomerRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

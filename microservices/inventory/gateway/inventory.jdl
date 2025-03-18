@@ -1,0 +1,27 @@
+application {
+  config {
+    applicationType gateway
+    authenticationType jwt
+    baseName inventory
+    buildTool maven
+    clientFramework angular
+    clientTheme none
+    creationTimestamp 1742250758132
+    databaseType sql
+    devDatabaseType h2Disk
+    enableTranslation true
+    jhipsterVersion "8.9.0"
+    jwtSecretKey "ODY0ZGI5Mzg3MDU4NWY3NGQzMTg3YTFhMzk0NjM4MmY0YTBjOTRjOWZjOWIwMmMxODYyNmFmMmFkZGE1Y2RkNjlmODVjYjJkNTkyYjI1MDU2YzYzOTUxNWM5NjhkZTA4MGI1YzU0YjQyNDg2NGFmMDRlOWI4ZjA5ZTczMzcxZDA="
+    languages [pt-br]
+    microfrontend true
+    microfrontends [stock, orders, fulfillment]
+    nativeLanguage pt-br
+    packageName br.pucpr.examples.inventory
+    prodDatabaseType postgresql
+    reactive true
+    serverPort 8080
+    serviceDiscoveryType consul
+    testFrameworks []
+    withAdminUi true
+  }
+}
