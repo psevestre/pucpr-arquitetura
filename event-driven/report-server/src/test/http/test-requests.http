@@ -1,0 +1,11 @@
+###
+POST http://localhost:8080/report
+Content-Type: application/json
+
+{
+  "reportTitle": "myreport7",
+  "reportType": "sales-quarterly3"
+}
+
+###
+GET http://localhost:8080/report/737cf685-33aa-41ec-a5aa-2a11cdfe072b
